@@ -12,9 +12,9 @@ config = Config()
 parser = argparse.ArgumentParser(description='IOT Sensor Emulator')
 parser.add_argument("--host", type=str,
                     default="iotlab.virtual.uniandes.edu.co", help="MQTT Host")
-parser.add_argument("--user", type=str, required=True, help=config.USER)
-parser.add_argument("--passwd", type=str, required=True, help=config.PASSWORD)
-parser.add_argument("--city", type=str, required=True, help="santiago_de_chile_emulated")
+parser.add_argument("--user", type=str, default=f"{config.USER}", help="MQTT User")
+parser.add_argument("--passwd", type=str,default=f"{config.PASSWORD}", help="MQTT Password")
+parser.add_argument("--city", type=str, default="santiago_de_chile_emulated", help="MQTT City")
 
 args = parser.parse_args()
 
@@ -26,7 +26,7 @@ def on_publish(client, userdata, result):
     pass
 
 
-client.tls_set(ca_certs='/cert/ca.crt',
+client.tls_set(ca_certs='./cert/ca.crt',
                tls_version=ssl.PROTOCOL_TLSv1_2, cert_reqs=ssl.CERT_NONE)
 client.username_pw_set(args.user, args.passwd)
 client.on_publish = on_publish
