@@ -4,14 +4,17 @@ import json
 import paho.mqtt.client as mqtt
 from random import uniform
 import time
+from config import Config
 import argparse
+
+config = Config()
 
 parser = argparse.ArgumentParser(description='IOT Sensor Emulator')
 parser.add_argument("--host", type=str,
                     default="iotlab.virtual.uniandes.edu.co", help="MQTT Host")
-parser.add_argument("--user", type=str, required=True, help="MQTT User")
-parser.add_argument("--passwd", type=str, required=True, help="MQTT Password")
-parser.add_argument("--city", type=str, required=True, help="MQTT City")
+parser.add_argument("--user", type=str, required=True, help=config.USER)
+parser.add_argument("--passwd", type=str, required=True, help=config.PASSWORD)
+parser.add_argument("--city", type=str, required=True, help="santiago_de_chile_emulated")
 
 args = parser.parse_args()
 
